@@ -1,14 +1,22 @@
 <?php
 namespace BeePHP\Mvc;
 
+use BeePHP\Di\Di;
+
 abstract class Model{
 
     protected $defaultProperties;
 
     protected $relationProperties;
 
+    /**
+     * @var \BeePHP\Db\AdapterInterface
+     */
+    protected $dbAdapter;
+
     public function __construct(){
         $this->init();
+        
     }
 
     abstract protected function init();

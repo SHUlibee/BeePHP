@@ -16,7 +16,7 @@ class Application{
     protected $di;
 
     /**
-     * @var
+     * @var \BeePHP\Mvc\Controller
      */
     protected $controller;
 

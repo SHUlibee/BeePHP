@@ -7,6 +7,11 @@ error_reporting(E_ALL);
 
 require '../BeePHP/autoload.php';
 
+//定义常量
+define('SERVER_ROOT', dirname(__FILE__));//应用根目录
+define('VIEW_ROOT', dirname(__FILE__) . "/View");
+
+
 //自动加载
 $loader = new \BeePHP\ClassLoader();
 $loader->registerDirs([
@@ -22,8 +27,8 @@ $router->add('/http/index', [
     'Action' => 'viewAction'
 ]);
 $router->add('/', [
-    'Controller' => 'Index',
-    'Action' => 'index'
+    'Controller' => 'Test\Controllers\IndexController',
+    'Action' => 'indexAction'
 ]);
 
 //依赖注入
