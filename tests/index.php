@@ -9,7 +9,6 @@ require '../BeePHP/autoload.php';
 
 //定义常量
 define('SERVER_ROOT', dirname(__FILE__));//应用根目录
-define('VIEW_ROOT', dirname(__FILE__) . "/View");
 
 
 //自动加载

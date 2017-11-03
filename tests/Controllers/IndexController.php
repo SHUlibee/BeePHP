@@ -9,6 +9,7 @@ class IndexController extends Controller{
     }
 
     public function indexAction(){
+        $this->view->assign("data", "hhhhhhhhhhhh");
         $this->view->render("index");
     }
 }
