@@ -22,7 +22,7 @@ class Di{
 
     }
 
-    public function get($name, $orNull = false){
+    public static function get($name, $orNull = false){
         if(isset(self::$service[$name])){
             return self::$service[$name]['definition'];
         }

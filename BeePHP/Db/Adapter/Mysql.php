@@ -1,11 +1,11 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: libiying
  * Date: 2017/4/17
  * Time: 10:41
  */
+namespace BeePHP\Db\Adapter;
 
 use \BeePHP\Db\Pdo;
 use \BeePHP\Db\AdapterInterface;
@@ -20,10 +20,10 @@ class Mysql extends Pdo implements AdapterInterface{
     public function __construct($config){
 
         if(!isset($config['host'])){
-            throw new Exception('host');
+            throw new \Exception('host');
         }
         if(!isset($config['dbname'])){
-            throw new Exception('dbname');
+            throw new \Exception('dbname');
         }
 
         $host = $config['host'];

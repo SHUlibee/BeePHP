@@ -77,9 +77,8 @@ class Application{
 
         $view = new View();
 
-        $this->controller = new $controllerName();
+        $this->controller = new $controllerName($this->di);
         $this->controller->setRequest($request);
-        $this->controller->setView($view);
         if(method_exists($this->controller, $actionName)){
 //            $this->controller->$actionName();
 

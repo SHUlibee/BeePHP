@@ -4,30 +4,32 @@ namespace BeePHP\Mvc;
 use BeePHP\Di\Di;
 use BeePHP\Http\Request;
 
+/**
+ * 控制器基类
+ * Class Controller
+ * @package BeePHP\Mvc
+ */
 class Controller{
+
+    /**
+     * @var \BeePHP\Di\Di
+     */
+    protected $di;
 
     /**
      * @var \BeePHP\Http\Request
      */
     protected $request;
 
-    /**
-     * @var \BeePHP\Mvc\View
-     */
-    protected $view;
+    public function __construct($di){
+        $this->di = $di;
+    }
 
     /**
      * @param mixed $request
      */
     public function setRequest(Request $request){
         $this->request = $request;
-    }
-
-    /**
-     * @param mixed $view
-     */
-    public function setView(View $view){
-        $this->view = $view;
     }
 
     public function __call($name, $arguments){

@@ -17,8 +17,8 @@ class View{
 
     public $file;						//模板文件名,不带路径
     public $debug = array();			//调试信息
-    private $values = array();			//值栈
-    private $compileTool;				//编译器
+    private $values = array();		//值栈
+    private $compileTool = null;		//编译器
     private $controlData = array();
     static private $instance = null;	//模板类对象
 

@@ -10,7 +10,6 @@ require '../BeePHP/autoload.php';
 //定义常量
 define('SERVER_ROOT', dirname(__FILE__));//应用根目录
 
-
 //自动加载
 $loader = new \BeePHP\ClassLoader();
 $loader->registerDirs([
@@ -35,6 +34,7 @@ $di = new \BeePHP\Di\Di();
 $di->set('loader', $loader);
 $di->set('router', $router);
 $di->set('controllerAspect', new \Test\Aspect\ControllerAspect());
+//$di->set('dbAdapter', new \BeePHP\Db\Adapter\Mysql(array()));
 
 $app = new \BeePHP\Mvc\Application($di);
 $app->run();

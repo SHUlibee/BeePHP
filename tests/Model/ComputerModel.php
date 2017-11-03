@@ -5,7 +5,7 @@ use BeePHP\Mvc\Model;
 
 class ComputerModel extends Model{
 
-    protected $default_properties = [
+    protected $defaultProperties = [
         'id', 'cpu', 'brand'
     ];
 

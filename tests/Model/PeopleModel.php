@@ -5,12 +5,12 @@ use BeePHP\Mvc\Model;
 
 class PeopleModel extends Model{
 
-    protected $default_properties = [
-        'id', 'name', 'sex'
+    protected $defaultProperties = [
+        'id', 'name', 'sex', 'computer'
     ];
 
     protected function init(){
-
+//        $this->dbAdapter
     }
 
 }

@@ -2,14 +2,15 @@
 namespace Test\Controllers;
 
 use BeePHP\Mvc\Controller;
+use BeePHP\Mvc\View;
 
 class IndexController extends Controller{
-    public function __construct(){
-
-    }
 
     public function indexAction(){
-        $this->view->assign("data", "hhhhhhhhhhhh");
-        $this->view->render("index");
+
+        $view = new View();
+
+        $view->assign("data", "hhhhhhhhhhhh");
+        $view->render("index");
     }
 }

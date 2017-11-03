@@ -3,6 +3,11 @@ namespace BeePHP\Mvc;
 
 use BeePHP\Di\Di;
 
+/**
+ * 模型基类
+ * Class Model
+ * @package BeePHP\Mvc
+ */
 abstract class Model{
 
     protected $defaultProperties;
@@ -10,13 +15,15 @@ abstract class Model{
     protected $relationProperties;
 
     /**
+     * 数据库适配器，使模型不用知道数据的具体来源
      * @var \BeePHP\Db\AdapterInterface
      */
     protected $dbAdapter;
 
-    public function __construct(){
+    public function __construct($dbAdapter){
+        $this->dbAdapter = $dbAdapter;
+
         $this->init();
-        
     }
 
     abstract protected function init();
@@ -32,7 +39,7 @@ abstract class Model{
     }
 
     public function create(){
-        return 1;
+
     }
 
     public function delete(){
