@@ -90,8 +90,8 @@
       <file leaf-file-name="Model.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BeePHP/Mvc/Model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+            <state relative-caret-position="418">
+              <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -517,15 +517,15 @@
       <workItem from="1509417641110" duration="3764000" />
       <workItem from="1509431074716" duration="12409000" />
       <workItem from="1509528436147" duration="2747000" />
-      <workItem from="1509674640982" duration="15969000" />
+      <workItem from="1509674640982" duration="16110000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37854000" />
+    <option name="totallyTimeSpent" value="37995000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20364584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -916,8 +916,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BeePHP/Mvc/Model.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+        <state relative-caret-position="418">
+          <caret line="40" column="29" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
           <folding />
         </state>
       </provider>
