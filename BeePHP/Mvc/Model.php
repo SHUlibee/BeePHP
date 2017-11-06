@@ -2,6 +2,7 @@
 namespace BeePHP\Mvc;
 
 use BeePHP\Di\Di;
+use BeePHP\Mvc\Model\Query;
 
 /**
  * 模型基类
@@ -15,35 +16,38 @@ abstract class Model{
     protected $relationProperties;
 
     /**
-     * 数据库适配器，使模型不用知道数据的具体来源
-     * @var \BeePHP\Db\AdapterInterface
+     * 主表名称
+     * @var string
      */
-    protected $dbAdapter;
+    protected $tableName;
 
-    public function __construct($dbAdapter){
-        $this->dbAdapter = $dbAdapter;
-
-        $this->init();
-    }
+    /**
+     * 主键
+     * @var string
+     */
+    protected $primaryKey;
 
     abstract protected function init();
 
-    public function find(){
-
-
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getDefaultProperties(){
+        return $this->defaultProperties;
     }
 
-    public function save(){
-
+    /**
+     * @return string
+     */
+    public function getTableName(){
+        return $this->tableName;
     }
 
-    public function create(){
-
-    }
-
-    public function delete(){
-
+    /**
+     * @return string
+     */
+    public function getPrimaryKey(){
+        return $this->primaryKey;
     }
 
     public function __set($name, $value){

@@ -10,10 +10,10 @@ namespace BeePHP\Db\Adapter;
 use \BeePHP\Db\Pdo;
 use \BeePHP\Db\AdapterInterface;
 
-class Mysql extends Pdo implements AdapterInterface{
+class Mysql implements AdapterInterface{
 
     /**
-     * @var PDO
+     * @var \PDO
      */
     protected $pdo = null;
 
@@ -34,38 +34,28 @@ class Mysql extends Pdo implements AdapterInterface{
 
         $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname . ';charset=' . $charset;
         $this->pdo = new \PDO($dsn, $username, $password);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function insert($data, $table){
-
-        
 
     }
 
     /**
-     * @return mixed
+     * 执行增删改操作，返回影响条数或者对应id
+     * @param string $sql
+     * @param string $lastInsertId
+     * @return int|string
      */
-    public function delete()
-    {
-        // TODO: Implement delete() method.
+    public function execute($sql, $lastInsertId = null){
+        if($lastInsertId){
+            $this->pdo->exec($sql);
+            return $this->pdo->lastInsertId();
+        }
+        return $this->pdo->exec($sql);
     }
 
     /**
+     * 查询数据
      * @return mixed
      */
-    public function update()
-    {
-        // TODO: Implement update() method.
-    }
+    public function query($sql){
 
-    /**
-     * @return mixed
-     */
-    public function query()
-    {
-        // TODO: Implement query() method.
     }
 }

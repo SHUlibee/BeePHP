@@ -4,7 +4,8 @@ namespace Test\Controllers;
 use BeePHP\Db\Adapter\Mysql;
 use BeePHP\Mvc\Controller;
 use Test\Model\ComputerModel;
-use Test\Model\PeopleModel;
+use Test\Model\People;
+use Test\Service\PeopleService;
 
 class HttpController extends Controller{
 
@@ -20,15 +21,17 @@ class HttpController extends Controller{
             'password' => '',
         ));
 
-        $people = new PeopleModel($dbAdapter);
-        $computer = new ComputerModel($dbAdapter);
+        $people = new People();
+        $computer = new ComputerModel();
         $computer->cpu = 'i5 6400';
         $computer->brand = 'iphone';
         
         $people->name = 'libiying';
-        $people->computer = $computer;
+//        $people->computer = $computer;
+
+        $service = new PeopleService($dbAdapter);
+        var_dump($service->create($people));
         
-        var_dump($computer, $people);
     }
 
     public function kafkaTestAction(){

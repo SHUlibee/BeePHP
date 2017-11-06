@@ -11,12 +11,8 @@ namespace BeePHP\Db;
 
 interface AdapterInterface{
 
-    public function insert($data, $table);
+    public function execute($sql, $lastInsertId = null);
 
-    public function delete();
-
-    public function update();
-
-    public function query();
+    public function query($sql);
 
 }
