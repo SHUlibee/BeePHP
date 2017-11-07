@@ -53,9 +53,12 @@ class Mysql implements AdapterInterface{
 
     /**
      * 查询数据
+     * @param $sql
      * @return mixed
      */
     public function query($sql){
+        $res = $this->pdo->query($sql, \PDO::FETCH_ASSOC);
 
+        return $res->fetchAll();
     }
 }

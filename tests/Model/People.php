@@ -8,6 +8,10 @@ class People extends Model{
     protected $defaultProperties = [
         'id', 'name', 'computer'
     ];
+
+    protected $relationProperties = [
+        'hasOne' => [Computer::class, 'computer'],
+    ];
     
     protected $primaryKey = 'id';
 
@@ -15,6 +19,9 @@ class People extends Model{
 
     protected function init(){
 //        $this->dbAdapter
+        $this->hasOne(Computer::class, 'computer');
     }
+
+
 
 }

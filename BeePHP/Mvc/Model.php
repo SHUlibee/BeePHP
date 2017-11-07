@@ -27,6 +27,16 @@ abstract class Model{
      */
     protected $primaryKey;
 
+    /**
+     * 表字段前缀
+     * @var
+     */
+    protected $prefix;
+
+    public function __construct(){
+        $this->init();
+    }
+
     abstract protected function init();
 
     /**
@@ -64,13 +74,16 @@ abstract class Model{
 
     /**
      * 属于
+     * @param $refModelName
+     * @param $refPropertyName
+     * @param null $propertyName
      */
-    protected function belongsTo($propertyName, $refModelName, $refPropertyName){
+    protected function belongsTo($refModelName, $refPropertyName, $propertyName = null){
         
     }
 
 
-    protected function hasOne(){
+    protected function hasOne($refModelName, $propertyName){
 
     }
 

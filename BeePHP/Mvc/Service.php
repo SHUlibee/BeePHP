@@ -8,6 +8,7 @@
 namespace BeePHP\Mvc;
 
 use BeePHP\Mvc\Model\Query;
+use BeePHP\Mvc\Model\ModelFactory;
 
 class Service {
 
@@ -21,11 +22,23 @@ class Service {
         $this->dbAdapter = $dbAdapter;
     }
 
-    public function find(){
+    /**
+     * @param int $id
+     * @param string $modelName
+     * @return Model
+     */
+    public function find($id, $modelName){
+        $model = ModelFactory::create($modelName);
 
-    }
+        $sql = Query::select($model->getDefaultProperties()) . Query::FROM . $model->getTableName() . Query::WHERE . $model->getPrimaryKey() . "=" . $id;
 
-    public function save(){
+        $res = $this->dbAdapter->query($sql);
+        if(count($res) >= 1){
+            foreach ($res[0] as $key => $value){
+                $model->$key = $value;
+            }
+        }
+        return $model;
     }
 
     /**
@@ -51,6 +64,10 @@ class Service {
     }
 
     public function delete(){
+
+    }
+
+    public function update(){
 
     }
 }

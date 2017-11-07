@@ -3,7 +3,7 @@ namespace Test\Model;
 
 use BeePHP\Mvc\Model;
 
-class ComputerModel extends Model{
+class Computer extends Model{
 
     protected $defaultProperties = [
         'id', 'cpu', 'brand'

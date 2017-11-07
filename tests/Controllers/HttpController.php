@@ -3,7 +3,7 @@ namespace Test\Controllers;
 
 use BeePHP\Db\Adapter\Mysql;
 use BeePHP\Mvc\Controller;
-use Test\Model\ComputerModel;
+use Test\Model\Computer;
 use Test\Model\People;
 use Test\Service\PeopleService;
 
@@ -12,7 +12,7 @@ class HttpController extends Controller{
 
     public function viewAction(){
 
-        var_dump($this->request->getParams());
+//        var_dump($this->request->getParams());
         
         $dbAdapter = new Mysql(array(
             'host' => '127.0.0.1',
@@ -22,7 +22,7 @@ class HttpController extends Controller{
         ));
 
         $people = new People();
-        $computer = new ComputerModel();
+        $computer = new Computer();
         $computer->cpu = 'i5 6400';
         $computer->brand = 'iphone';
         
@@ -30,7 +30,8 @@ class HttpController extends Controller{
 //        $people->computer = $computer;
 
         $service = new PeopleService($dbAdapter);
-        var_dump($service->create($people));
+        echo (json_encode($service->find(1, People::class)));
+//        var_dump($service->create($people));
         
     }
 
