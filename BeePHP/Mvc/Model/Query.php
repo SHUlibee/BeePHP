@@ -19,13 +19,28 @@ class Query{
     }
 
     public static function select($params = '*'){
-        $flagment = " SELECT ";
+        $segment = " SELECT ";
         if(is_string($params)){
-            $flagment .= $params;
+            $segment .= $params;
         }else if(is_array($params)){
-            $flagment .= implode(',', $params);
+            $segment .= implode(',', $params);
         }
-        return $flagment;
+        return $segment;
+    }
+
+    public static function from($table){
+        $segment = " FROM " . $table;
+        return $segment;
+    }
+
+    public static function where($params){
+        $segment = " WHERE ";
+        if(is_string($params)){
+            $segment .= $params;
+        }else if(is_array($params)){
+            $segment .= implode(',', $params);
+        }
+        return $segment;
     }
 
 }

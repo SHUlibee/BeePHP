@@ -13,6 +13,10 @@ abstract class Model{
 
     protected $defaultProperties;
 
+    /**
+     * 关联关系，四种：belongsTo hasOne hasMany hasManyToMany
+     * @var
+     */
     protected $relationProperties;
 
     /**
@@ -47,6 +51,13 @@ abstract class Model{
     }
 
     /**
+     * @return mixed
+     */
+    public function getRelationProperties(){
+        return $this->relationProperties;
+    }
+
+    /**
      * @return string
      */
     public function getTableName(){
@@ -70,6 +81,13 @@ abstract class Model{
         if(in_array($name, $this->defaultProperties)){
             return property_exists($this, $name) ? $this->$name : null;
         }
+    }
+
+    public function getValue($name){
+        if(isset($this->$name)){
+            return $this->$name;
+        }
+        throw new \Exception("$name 属性不存在！");
     }
 
     /**

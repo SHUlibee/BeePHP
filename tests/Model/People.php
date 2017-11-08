@@ -10,7 +10,7 @@ class People extends Model{
     ];
 
     protected $relationProperties = [
-        'hasOne' => [Computer::class, 'computer'],
+        'hasOne' => ['modelName' => Computer::class, 'property' => 'computer'],
     ];
     
     protected $primaryKey = 'id';

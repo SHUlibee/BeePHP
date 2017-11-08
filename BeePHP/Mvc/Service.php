@@ -23,6 +23,7 @@ class Service {
     }
 
     /**
+     * 查找对象
      * @param int $id
      * @param string $modelName
      * @return Model
@@ -30,7 +31,7 @@ class Service {
     public function find($id, $modelName){
         $model = ModelFactory::create($modelName);
 
-        $sql = Query::select($model->getDefaultProperties()) . Query::FROM . $model->getTableName() . Query::WHERE . $model->getPrimaryKey() . "=" . $id;
+        $sql = Query::select($model->getDefaultProperties()) . Query::from($model->getTableName()) . Query::WHERE . $model->getPrimaryKey() . "=" . $id;
 
         $res = $this->dbAdapter->query($sql);
         if(count($res) >= 1){
@@ -38,7 +39,25 @@ class Service {
                 $model->$key = $value;
             }
         }
+        if($model->getRelationProperties()){
+            foreach ($model->getRelationProperties() as $key => $relation){
+                if($key == 'hasOne'){
+                    $rId = $model->getValue($relation['property']);
+                    $rProperty = $relation['property'];
+                    $rModelName = $relation['modelName'];
+                    $model->$rProperty = $this->find($rId, $rModelName);
+                }
+            }
+        }
+        
         return $model;
+    }
+
+    /**
+     * 查找数组对象
+     */
+    public function findList(){
+
     }
 
     /**
