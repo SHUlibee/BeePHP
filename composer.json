@@ -3,7 +3,7 @@
   "type": "framework",
   "description": "A simple framework for php.",
   "homepage": "https://github.com/SHUlibee/BeePHP",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "authors": [
     {
