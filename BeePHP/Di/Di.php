@@ -3,7 +3,7 @@ namespace BeePHP\Di;
 
 /**
  * 依赖注入
- * 系统默认service：router，Controller，view
+ * 系统组件：router，Controller，view
  * Class Di
  * @package BeePHP\Di
  */
@@ -14,12 +14,28 @@ class Di{
      */
     protected static $service;
 
-    public function set($name, $definition, $share = false){
+    /**
+     * 注入静态组件（已经实例化的组件）
+     * @param $name string 组件名称
+     * @param $definition object 组件
+     */
+    public function set($name, $definition){
         self::$service[$name] = [
             'definition' => $definition,
-            'share' => $share,
         ];
+    }
 
+    /**
+     * 注入动态组件（当使用时才会实例化的组件）
+     * @param $name
+     * @param $definition
+     * @param null $args
+     */
+    public function setDynamic($name, $class, $args = null){
+        self::$service[$name] = [
+            'class' => $class,
+            'args' => $args,
+        ];
     }
 
     public static function get($name, $orNull = false){
@@ -29,7 +45,20 @@ class Di{
         if($orNull){
             return null;
         }
-        throw new \Exception("服务 $name 不存在！");
+        throw new \Exception("组件 $name 不存在！");
+    }
+
+    public static function getDynamic($name, $orNull = false){
+        if(isset(self::$service[$name])){
+            $class = self::$service[$name]['class'];
+            $args = self::$service[$name]['args'];
+            self::$service[$name]['definition'] = new $class($args);
+            return self::$service[$name]['definition'];
+        }
+        if($orNull){
+            return null;
+        }
+        throw new \Exception("组件 $name 不存在！");
     }
 
     public function exist($name){
