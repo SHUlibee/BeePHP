@@ -28,7 +28,7 @@ class Di{
     /**
      * 注入动态组件（当使用时才会实例化的组件）
      * @param $name
-     * @param $definition
+     * @param $class
      * @param null $args
      */
     public function setDynamic($name, $class, $args = null){
@@ -48,6 +48,13 @@ class Di{
         throw new \Exception("组件 $name 不存在！");
     }
 
+    /**
+     * 获取动态组件
+     * @param $name
+     * @param bool $orNull
+     * @return null
+     * @throws \Exception
+     */
     public static function getDynamic($name, $orNull = false){
         if(isset(self::$service[$name])){
             $class = self::$service[$name]['class'];

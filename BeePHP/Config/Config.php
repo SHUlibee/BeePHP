@@ -5,7 +5,7 @@
  * Date: 2017/11/3
  * Time: 10:50
  */
-namespace BeePHP;
+namespace BeePHP\Config;
 
 class Config{
 

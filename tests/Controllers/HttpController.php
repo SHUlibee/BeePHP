@@ -14,12 +14,7 @@ class HttpController extends Controller{
 
 //        var_dump($this->request->getParams());
         
-        $dbAdapter = new Mysql(array(
-            'host' => '127.0.0.1',
-            'dbname' => 'beeblog',
-            'username' => 'root',
-            'password' => '',
-        ));
+        $dbAdapter = $this->di->getDynamic('dbAdapter');
 
         $people = new People();
         $computer = new Computer();

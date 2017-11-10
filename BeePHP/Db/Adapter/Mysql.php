@@ -7,7 +7,7 @@
  */
 namespace BeePHP\Db\Adapter;
 
-use \BeePHP\Db\Pdo;
+use BeePHP\Config\Config;
 use \BeePHP\Db\AdapterInterface;
 
 class Mysql implements AdapterInterface{
@@ -17,24 +17,21 @@ class Mysql implements AdapterInterface{
      */
     protected $pdo = null;
 
-    public function __construct($config){
+    /**
+     * Mysql constructor.
+     * @param $config Config
+     * @throws \Exception
+     */
+    public function __construct(Config $config){
 
-        if(!isset($config['host'])){
-            throw new \Exception('host');
-        }
-        if(!isset($config['dbname'])){
-            throw new \Exception('dbname');
-        }
-
-        $host = $config['host'];
-        $dbname = $config['dbname'];
-        $charset = isset($config['charset']) ? $config['charset'] : 'UTF8';
-        $username = $config['username'];
-        $password = $config['password'];
+        $host = $config->get('host');
+        $dbname = $config->get('dbname');
+        $charset = $config->get('charset') ? $config->get('charset') : 'UTF8';
+        $username = $config->get('username');
+        $password = $config->get('password');
 
         $dsn = 'mysql:host=' . $host . ';dbname=' . $dbname . ';charset=' . $charset;
         $this->pdo = new \PDO($dsn, $username, $password);
-
     }
 
     /**
