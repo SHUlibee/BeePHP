@@ -15,9 +15,15 @@ abstract class Model{
 
     /**
      * 关联关系，四种：belongsTo hasOne hasMany hasManyToMany
+     * hasMany 要和 belongsTo 配合使用
      * @var
      */
     protected $relationProperties;
+
+    const BELONGS_TO = 'belongsTo';
+    const HAS_ONE = 'hasOne';
+    const HAS_MANY = 'hasMany';
+    const HAS_MANY_TO_MANY = 'hasManyToMany';
 
     /**
      * 主表名称

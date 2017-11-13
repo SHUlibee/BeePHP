@@ -32,7 +32,7 @@ $router->add('/', [
 //依赖注入
 $di = new \BeePHP\Di\Di();
 $di->set('router', $router);
-$di->set('controllerAspect', new \Test\Aspect\ControllerAspect());
+//$di->set('controllerAspect', new \Test\Aspect\ControllerAspect());
 $di->setDynamic('dbAdapter', \BeePHP\Db\Adapter\Mysql::class, \BeePHP\Config\Config::create(array(
     'host' => '127.0.0.1',
     'dbname' => 'beeblog',

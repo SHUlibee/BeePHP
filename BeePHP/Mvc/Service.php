@@ -41,11 +41,19 @@ class Service {
         }
         if($model->getRelationProperties()){
             foreach ($model->getRelationProperties() as $key => $relation){
-                if($key == 'hasOne'){
-                    $rId = $model->getValue($relation['property']);
-                    $rProperty = $relation['property'];
-                    $rModelName = $relation['modelName'];
-                    $model->$rProperty = $this->find($rId, $rModelName);
+                switch ($key){
+                    case Model::HAS_ONE:
+                        $rId = $model->getValue($relation['property']);
+                        $rProperty = $relation['property'];
+                        $rModelName = $relation['modelName'];
+                        $model->$rProperty = $this->find($rId, $rModelName);
+                        break;
+                    case Model::HAS_MANY:
+                        break;
+                    case Model::HAS_MANY_TO_MANY:
+                        break;
+
+                    default:
                 }
             }
         }
@@ -56,8 +64,21 @@ class Service {
     /**
      * 查找数组对象
      */
-    public function findList(){
+    public function findList($where, $modelName){
+        $models = [];
+        $model = ModelFactory::create($modelName);
 
+        $sql = Query::select($model->getDefaultProperties()) . Query::from($model->getTableName()) . Query::where($where);
+
+        $res = $this->dbAdapter->query($sql);
+        foreach ($res as $re){
+            $model = ModelFactory::create($modelName);
+            foreach ($re as $key => $value){
+                $model->$key = $value;
+            }
+            $model[] = $model;
+        }
+        return $models;
     }
 
     /**

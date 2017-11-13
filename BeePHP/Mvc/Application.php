@@ -20,8 +20,14 @@ class Application{
      */
     protected $controller;
 
+    /**
+     * @var string 控制器类名称
+     */
     protected $controllerName;
 
+    /**
+     * @var string 控制器方法名
+     */
     protected $actionName;
 
     protected $getVars;
@@ -74,8 +80,6 @@ class Application{
 
         $request = new Request();
         $request->setParams($getVars);
-
-        $view = new View();
 
         $this->controller = new $controllerName($this->di);
         $this->controller->setRequest($request);
