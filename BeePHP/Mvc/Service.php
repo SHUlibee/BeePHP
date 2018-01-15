@@ -41,14 +41,15 @@ class Service {
         }
         if($model->getRelationProperties()){
             foreach ($model->getRelationProperties() as $key => $relation){
+                $rProperty = $relation['property'];
+                $rModelName = $relation['modelName'];
                 switch ($key){
                     case Model::HAS_ONE:
                         $rId = $model->getValue($relation['property']);
-                        $rProperty = $relation['property'];
-                        $rModelName = $relation['modelName'];
                         $model->$rProperty = $this->find($rId, $rModelName);
                         break;
                     case Model::HAS_MANY:
+                        $model->$rProperty = $this->findList(array(), $rModelName);
                         break;
                     case Model::HAS_MANY_TO_MANY:
                         break;
@@ -76,7 +77,7 @@ class Service {
             foreach ($re as $key => $value){
                 $model->$key = $value;
             }
-            $model[] = $model;
+            $models[] = $model;
         }
         return $models;
     }

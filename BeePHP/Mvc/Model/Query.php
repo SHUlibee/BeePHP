@@ -34,11 +34,13 @@ class Query{
     }
 
     public static function where($params){
-        $segment = " WHERE ";
-        if(is_string($params)){
-            $segment .= $params;
-        }else if(is_array($params)){
-            $segment .= implode(',', $params);
+        $segment = '';
+        if(!empty($params) && $params){
+            if(is_string($params)){
+                $segment = self::WHERE . $params;
+            }else if(is_array($params)){
+                $segment = self::WHERE . implode(',', $params);
+            }
         }
         return $segment;
     }
