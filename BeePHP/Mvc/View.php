@@ -19,6 +19,7 @@ class View{
     public $debug = array();			//调试信息
     private $values = array();		//值栈
     private $compileTool = null;		//编译器
+    private $compileFile;              //编译文件
     private $controlData = array();
     static private $instance = null;	//模板类对象
 
@@ -151,13 +152,14 @@ class View{
             if($this->needCache()) {
                 ob_start();
             }
-            extract($this->values, EXTR_OVERWRITE);
             // 如果编译文件不存在，或者现存编译文件创建时间小于模版文件，则从新编译
             if(!is_file($compileFile) || fileatime($compileFile) < filemtime($this->path())) {
                 $this->compileTool->values = $this->values;
                 $this->compileTool->compile();
             }
-            include $compileFile;
+            $this->compileFile = $compileFile;
+//            extract($this->values, EXTR_OVERWRITE);
+//            include $compileFile;
 
             if($this->needCache()) {
                 $message = ob_get_contents();
@@ -170,6 +172,11 @@ class View{
         $this->debug['spend'] = microtime(true) - $this->debug['begin'];
         $this->debug['count'] = count($this->values);
         $this->debug_info();
+    }
+
+    public function send(){
+        extract($this->values, EXTR_OVERWRITE);
+        include $this->compileFile;
     }
 
     public function debug_info(){

@@ -12,5 +12,7 @@ class IndexController extends Controller{
 
         $view->assign("data", "hhhhhhhhhhhh");
         $view->render("index");
+
+        return $view;
     }
 }

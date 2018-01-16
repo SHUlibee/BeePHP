@@ -2,11 +2,16 @@
 namespace Test\Controllers;
 
 use BeePHP\Db\Adapter\Mysql;
+use BeePHP\Http\Response;
 use BeePHP\Mvc\Controller;
 use Test\Model\Computer;
 use Test\Model\People;
 use Test\Service\PeopleService;
 
+/**
+ * http接口控制器
+ * @package Test\Controllers
+ */
 class HttpController extends Controller{
 
 
@@ -25,11 +30,10 @@ class HttpController extends Controller{
 //        $people->computer = $computer;
 
         $service = new PeopleService($dbAdapter);
-        echo (json_encode($service->find(1, People::class)));
+        $data = $service->find(1, People::class);
 //        echo (json_encode($service->findList(array(), People::class)));
 //        var_dump($service->create($people));
-
-        $this->redirect("");
+        return new Response($data);
     }
 
     public function kafkaTestAction(){

@@ -90,7 +90,8 @@ class Application{
                 $aspect->wrap($this->controller);
                 call_user_func_array(array($aspect, $actionName), []);
             }else{
-                call_user_func_array(array($this->controller, $actionName), []);
+                $ctl = call_user_func_array(array($this->controller, $actionName), []);
+                $ctl->send();
             }
         }
 
