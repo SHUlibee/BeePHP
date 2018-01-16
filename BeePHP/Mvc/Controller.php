@@ -41,4 +41,31 @@ class Controller{
         // TODO: Implement __get() method.
     }
 
+    /**
+     * 地址重定向
+     * @param $uri          control/action
+     * @param null $param   get_string | array('key1'=>'val1')
+     */
+    public function redirect($uri, $param=null){
+        $u = '/'.$uri;
+
+        //构造get参数
+        $str = '';
+        if(is_string($param)){
+            $first = substr($param, 0, 1);
+            if($first != '?'){
+                $str = '?'.$param;
+            }else{
+                $str = $param;
+            }
+        }else if(is_array($param)){
+            foreach($param as $key=>$val){
+                $str .= $key.'='.$val.'&';
+            }
+            $str = '?'.rtrim($str, '&');
+        }
+        $u .= $str;
+        header("Location: $u"); die;
+    }
+
 }

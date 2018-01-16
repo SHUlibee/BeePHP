@@ -28,7 +28,8 @@ class HttpController extends Controller{
         echo (json_encode($service->find(1, People::class)));
 //        echo (json_encode($service->findList(array(), People::class)));
 //        var_dump($service->create($people));
-        
+
+        $this->redirect("");
     }
 
     public function kafkaTestAction(){
