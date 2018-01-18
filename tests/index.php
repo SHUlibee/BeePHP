@@ -19,15 +19,7 @@ $loader->registerDirs([
 ])->register();
 
 //路由控制
-$router = new \BeePHP\Mvc\Router();
-$router->add('/http/index', [
-    'Controller' => 'Test\Controllers\HttpController',
-    'Action' => 'viewAction'
-]);
-$router->add('/', [
-    'Controller' => 'Test\Controllers\IndexController',
-    'Action' => 'indexAction'
-]);
+include 'Config/Router.php';
 
 //依赖注入
 $di = new \BeePHP\Di\Di();
