@@ -14,25 +14,18 @@ namespace BeePHP\Http;
  */
 class Response{
 
-    protected $data;
-
     /**
      * @var Header http头部信息
      */
     protected $header;
 
-    function __construct($data){
-        $this->data = $data;
-
+    function __construct(){
         $this->header = new Header();
     }
 
     function send(){
-
-
         $this->header->send();
-
-        echo json_encode($this->data);
+        echo json_encode($this);
     }
 
 }

@@ -18,7 +18,21 @@ class Service {
      */
     protected $dbAdapter;
 
-    public function __construct($dbAdapter){
+//    public function __construct($dbAdapter = null){
+//        $this->setDbAdapter($dbAdapter);
+//    }
+
+    /**
+     * @return \BeePHP\Db\AdapterInterface
+     */
+    public function getDbAdapter(){
+        return $this->dbAdapter;
+    }
+
+    /**
+     * @param \BeePHP\Db\AdapterInterface $dbAdapter
+     */
+    public function setDbAdapter($dbAdapter){
         $this->dbAdapter = $dbAdapter;
     }
 
@@ -64,14 +78,17 @@ class Service {
 
     /**
      * 查找数组对象
+     * @param array $where
+     * @param string $modelName
+     * @return array
      */
     public function findList($where, $modelName){
         $models = [];
         $model = ModelFactory::create($modelName);
 
         $sql = Query::select($model->getDefaultProperties()) . Query::from($model->getTableName()) . Query::where($where);
-
         $res = $this->dbAdapter->query($sql);
+
         foreach ($res as $re){
             $model = ModelFactory::create($modelName);
             foreach ($re as $key => $value){
@@ -79,7 +96,25 @@ class Service {
             }
             $models[] = $model;
         }
+
         return $models;
+    }
+
+    /**
+     * @param $where
+     * @param $modelName
+     * @return int
+     */
+    public function count($where, $modelName){
+        $model = ModelFactory::create($modelName);
+
+        $sql = Query::count() . Query::from($model->getTableName()) . Query::where($where);
+        $res = $this->dbAdapter->query($sql);
+
+        if(count($res) > 0 && isset($res[0]['num'])){
+            return $res[0]['num'];
+        }
+        return null;
     }
 
     /**
@@ -87,9 +122,9 @@ class Service {
      * @return mixed
      */
     public function create($model){
-
         $values = array();
         $properties = array();
+
         foreach ($model->getDefaultProperties() as $property){
             // 如果已设置属性，并且非主键
             if (isset($model->$property) && $property != $model->getPrimaryKey()){
@@ -99,8 +134,8 @@ class Service {
         }
 
         $sql = Query::INSERT_INTO . $model->getTableName() . '(' . implode(',', $properties)  . ')' . Query::VALUES . '(' . implode(',', $values) . ')';
-
         $res = $this->dbAdapter->execute($sql, $model->getPrimaryKey());
+        
         return $res;
     }
 

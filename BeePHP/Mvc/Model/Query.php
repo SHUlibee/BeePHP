@@ -28,6 +28,10 @@ class Query{
         return $segment;
     }
 
+    public static function count(){
+        return self::select('count(*) as num');
+    }
+
     public static function from($table){
         $segment = " FROM " . $table;
         return $segment;

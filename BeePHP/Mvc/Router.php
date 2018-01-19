@@ -8,11 +8,17 @@ class Router{
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
 
-    public function add($pattern, $paths, $httpMethod = ['GET', 'POST']){
-        if(in_array(self::METHOD_GET, $httpMethod)){
+    /**
+     * 添加路由
+     * @param string $pattern 路由规则
+     * @param $paths
+     * @param $httpMethod
+     */
+    public function add($pattern, $paths, $httpMethod = self::METHOD_GET){
+        if(self::METHOD_GET == strtoupper($httpMethod)){
             $this->addGet($pattern, $paths);
         }
-        if(in_array(self::METHOD_POST, $httpMethod)){
+        if(self::METHOD_POST == strtoupper($httpMethod)){
             $this->addPost($pattern, $paths);
         }
     }
