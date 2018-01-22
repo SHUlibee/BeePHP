@@ -10,7 +10,7 @@ class Computer extends Model{
     ];
 
     protected $relationProperties = [
-        Model::BELONGS_TO => ['modelName' => People::class, 'property' => 'people_id'],
+        Model::BELONGS_TO => ['modelClass' => People::class, 'property' => 'people_id'],
     ];
     
     protected $primaryKey = 'id';

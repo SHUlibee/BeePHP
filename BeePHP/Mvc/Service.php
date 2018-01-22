@@ -18,9 +18,23 @@ class Service {
      */
     protected $dbAdapter;
 
-//    public function __construct($dbAdapter = null){
-//        $this->setDbAdapter($dbAdapter);
-//    }
+    protected $modelClass;
+
+    /**
+     * @return mixed
+     */
+    public function getModelClass()
+    {
+        return $this->modelClass;
+    }
+
+    /**
+     * @param mixed $modelClass
+     */
+    public function setModelClass($modelClass)
+    {
+        $this->modelClass = $modelClass;
+    }
 
     /**
      * @return \BeePHP\Db\AdapterInterface
@@ -37,17 +51,21 @@ class Service {
     }
 
     /**
-     * 查找对象
+     * 查找对象（可以查找出关联对象）
      * @param int $id
-     * @param string $modelName
+     * @param string $modelClass
+     *
      * @return Model
      */
-    public function find($id, $modelName){
-        $model = ModelFactory::create($modelName);
+    public function find($id, $modelClass = null){
+        if ($modelClass == null){
+            $modelClass = $this->getModelClass();
+        }
 
+        $model = ModelFactory::create($modelClass);
         $sql = Query::select($model->getDefaultProperties()) . Query::from($model->getTableName()) . Query::WHERE . $model->getPrimaryKey() . "=" . $id;
-
         $res = $this->dbAdapter->query($sql);
+
         if(count($res) >= 1){
             foreach ($res[0] as $key => $value){
                 $model->$key = $value;
@@ -56,14 +74,15 @@ class Service {
         if($model->getRelationProperties()){
             foreach ($model->getRelationProperties() as $key => $relation){
                 $rProperty = $relation['property'];
-                $rModelName = $relation['modelName'];
+                $rmodelClass = $relation['modelClass'];
                 switch ($key){
                     case Model::HAS_ONE:
                         $rId = $model->getValue($relation['property']);
-                        $model->$rProperty = $this->find($rId, $rModelName);
+                        $model->$rProperty = $this->find($rId, $rmodelClass);
                         break;
                     case Model::HAS_MANY:
-                        $model->$rProperty = $this->findList(array(), $rModelName);
+                        echo $rmodelClass;
+                        $model->$rProperty = $this->findList(array(), $rmodelClass);
                         break;
                     case Model::HAS_MANY_TO_MANY:
                         break;
@@ -72,25 +91,27 @@ class Service {
                 }
             }
         }
-        
         return $model;
     }
 
     /**
      * 查找数组对象
      * @param array $where
-     * @param string $modelName
+     * @param string $modelClass
+     *
      * @return array
      */
-    public function findList($where, $modelName){
+    public function findList($where, $modelClass = null){
+        if ($modelClass == null){
+            $modelClass = $this->getModelClass();
+        }
         $models = [];
-        $model = ModelFactory::create($modelName);
-
+        $model = ModelFactory::create($modelClass);
         $sql = Query::select($model->getDefaultProperties()) . Query::from($model->getTableName()) . Query::where($where);
         $res = $this->dbAdapter->query($sql);
 
         foreach ($res as $re){
-            $model = ModelFactory::create($modelName);
+            $model = ModelFactory::create($modelClass);
             foreach ($re as $key => $value){
                 $model->$key = $value;
             }
@@ -102,12 +123,16 @@ class Service {
 
     /**
      * @param $where
-     * @param $modelName
+     * @param $modelClass
+     *
      * @return int
      */
-    public function count($where, $modelName){
-        $model = ModelFactory::create($modelName);
-
+    public function count($where, $modelClass = null){
+        if ($modelClass == null){
+            $modelClass = $this->getModelClass();
+        }
+        
+        $model = ModelFactory::create($modelClass);
         $sql = Query::count() . Query::from($model->getTableName()) . Query::where($where);
         $res = $this->dbAdapter->query($sql);
 

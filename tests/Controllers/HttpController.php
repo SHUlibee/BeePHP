@@ -18,8 +18,7 @@ class HttpController extends Controller{
     public function viewAction(){
 
 //        var_dump($this->request->getParams());
-        
-        $dbAdapter = $this->di->getDynamic('dbAdapter');
+
 
         $people = new People();
         $computer = new Computer();
@@ -29,9 +28,9 @@ class HttpController extends Controller{
         $people->name = 'libiying';
 //        $people->computer = $computer;
 
-        $service = new PeopleService($dbAdapter);
-        $data = $service->find(1, People::class);
-//        echo (json_encode($service->findList(array(), People::class)));
+        $service = new PeopleService();
+//        $data = $service->find(1);
+        $data = $service->findList(array('id = 1'));
 //        var_dump($service->create($people));
         return new Response($data);
     }

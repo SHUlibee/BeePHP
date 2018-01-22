@@ -6,12 +6,13 @@ use BeePHP\Mvc\Model;
 class People extends Model{
 
     protected $defaultProperties = [
-        'id', 'name', 'computer'
+        'id', 'name',
+        'computer',
     ];
 
     protected $relationProperties = [
-//        'hasOne' => ['modelName' => Computer::class, 'property' => 'computer'],
-        'hasMany' => ['modelName' => Computer::class, 'property' => 'computers'],
+//        'hasOne' => ['modelClass' => Computer::class, 'property' => 'computer'],
+        'hasMany' => ['modelClass' => Computer::class, 'property' => 'computer'],
     ];
     
     protected $primaryKey = 'id';

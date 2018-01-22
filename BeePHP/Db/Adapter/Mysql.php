@@ -54,9 +54,7 @@ class Mysql implements AdapterInterface{
      * @return mixed
      */
     public function query($sql){
-//        echo $sql . "\n";
         $res = $this->pdo->query($sql, \PDO::FETCH_ASSOC);
-
         return $res->fetchAll();
     }
 }
