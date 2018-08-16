@@ -143,6 +143,7 @@ class Service {
     }
 
     /**
+     * 新增记录，返回自增id
      * @param Model $model
      * @return mixed
      */

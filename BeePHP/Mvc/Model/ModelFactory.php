@@ -28,4 +28,14 @@ class ModelFactory{
         throw new \Exception("$modelName 类不存在！");
     }
 
+    public static function convert(array $data, $modelName){
+        $model = ModelFactory::create($modelName);
+        if($data != null){
+            foreach ($data as $key => $value){
+                $model->$key = $value;
+            }
+        }
+        return $model;
+    }
+    
 }

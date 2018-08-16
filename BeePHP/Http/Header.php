@@ -11,7 +11,7 @@ namespace BeePHP\Http;
 
 class Header{
 
-    private $contentType = 'application/json';
+    private $contentType = 'application/json;charset=UTF-8';
 
     public function send(){
         header('Content-type:' . $this->contentType);
