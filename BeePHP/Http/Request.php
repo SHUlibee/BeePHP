@@ -15,8 +15,13 @@ class Request{
      * 获取get参数
      * @return mixed
      */
-    public function getParams(){
-        return $this->params;
+    public function getParams($name = ''){
+        if(empty($name)){
+            return $this->params;
+        }else if (isset($this->params[$name])){
+            return $this->params[$name];
+        }
+        return null;
     }
 
     /**

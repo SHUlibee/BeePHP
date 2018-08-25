@@ -154,7 +154,7 @@ class Service {
         foreach ($model->getDefaultProperties() as $property){
             // 如果已设置属性，并且非主键
             if (isset($model->$property) && $property != $model->getPrimaryKey()){
-                $values[] = is_string($model->$property) ? "'" . $model->$property . "'" : $model->$property;
+                $values[] = is_string($model->$property) ? "'" . addslashes($model->$property) . "'" : $model->$property;
                 $properties[] = $property;
             }
         }

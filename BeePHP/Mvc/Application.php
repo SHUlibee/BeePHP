@@ -91,7 +91,9 @@ class Application{
                 call_user_func_array(array($aspect, $actionName), []);
             }else{
                 $ctl = call_user_func_array(array($this->controller, $actionName), []);
-                $ctl->send();
+                if (null != $ctl && method_exists($ctl, 'send')){
+                    $ctl->send();
+                }
             }
         }
 
