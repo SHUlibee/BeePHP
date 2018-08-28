@@ -4,6 +4,8 @@ namespace BeePHP\Mvc\Model;
 class Query{
 
     const INSERT_INTO = ' INSERT INTO ';
+    const UPDATE = ' UPDATE ';
+    const DELETE = ' DELETE ';
     const FROM = ' FROM ';
     const SET = ' SET ';
     const VALUES = ' VALUES ';
@@ -47,6 +49,23 @@ class Query{
             }
         }
         return $segment;
+    }
+
+    public static function set($params){
+        if(!empty($params) && $params){
+            $segment = self::SET;
+            if(is_string($params)){
+                $segment .= $params;
+            }else if(is_array($params)){
+                $arr = array();
+                foreach ($params as $key => $val){
+                    $arr[] = $key . '=' . '"' . $val . '"';
+                }
+                $segment .= implode(',', $arr);
+            }
+            return $segment;
+        }
+        return "";
     }
 
 }

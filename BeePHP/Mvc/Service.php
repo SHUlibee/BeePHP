@@ -160,16 +160,45 @@ class Service {
         }
 
         $sql = Query::INSERT_INTO . $model->getTableName() . '(' . implode(',', $properties)  . ')' . Query::VALUES . '(' . implode(',', $values) . ')';
-        $res = $this->dbAdapter->execute($sql, $model->getPrimaryKey());
+        $res = $this->dbAdapter->execute($sql, true);
         
         return $res;
     }
 
-    public function delete(){
-
+    /**
+     * @param Model $model
+     * @return mixed
+     */
+    public function delete($model){
+        $primaryKey = $model->getPrimaryKey();
+        $sql = Query::DELETE . Query::FROM . $model->getTableName() . Query::where('id = ' . $model->$primaryKey);
+        $res = $this->dbAdapter->execute($sql);
+        return $res;
     }
 
-    public function update(){
+    /**
+     * 更新记录
+     * @param Model $model
+     * @param array $where 查询条件，如果为空，使用主键作为条件
+     * @return boolean
+     */
+    public function update($model, $where = null){
+        $setter = array();
+        $primaryKey = null;
+        if($where == null){
+            $primaryKey = $model->getPrimaryKey();
+        }
 
+        foreach ($model->getDefaultProperties() as $property){
+            // 如果已设置属性，并且非主键
+            if (isset($model->$property) && $property != $model->getPrimaryKey()){
+                $setter[$property] = is_string($model->$property) ?  addslashes($model->$property) : $model->$property;
+            }
+        }
+
+        $sql = Query::UPDATE . $model->getTableName() . Query::set($setter) . Query::where($primaryKey ? $primaryKey . '=' . $model->$primaryKey : $where);
+        $res = $this->dbAdapter->execute($sql);
+
+        return $res;
     }
 }
